@@ -1,1 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Utkarsh Rastogi — Product Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #0b0c0f;
+      --surface:   #13151a;
+      --border:    #1e2028;
+      --accent:    #5b6ef5;
+      --accent2:   #a78bfa;
+      --text:      #e8e9f0;
+      --muted:     #6b7280;
+      --tag-bg:    #1a1c25;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(11,12,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(91,110,245,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 780px; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 48px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #4a5de0; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ABOUT SECTION */
+    section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+    .stat-card:first-child { border-radius: 12px 0 0 0; }
+    .stat-card:nth-child(2) { border-radius: 0 12px 0 0; }
+    .stat-card:nth-child(3) { border-radius: 0 0 0 12px; }
+    .stat-card:last-child { border-radius: 0 0 12px 0; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+    /* SKILLS */
+    .skills-section { border-top: 1px solid var(--border); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .skill-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .skill-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      section { padding: 60px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">UR</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Product Manager · SaaS</div>
+    <h1>Hi, I'm<br><span>Utkarsh Rastogi</span></h1>
+    <p class="hero-sub">
+      I build products that people actually want to use — turning messy problems into clean, 
+      scalable solutions at the intersection of user needs and business goals.
+    </p>
+    <div class="hero-cta">
+      <a href="portfolio.html" class="btn btn-primary">View my work →</a>
+      <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section>
+  <div class="section-label">About Me</div>
+  <h2>Product thinker.<br>Problem solver.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a <strong>Product Manager at a SaaS company</strong>, where I own the full product lifecycle — 
+        from discovery and roadmapping to launch and iteration. I work closely with engineering, 
+        design, and GTM teams to ship products that move the needle.
+      </p>
+      <p>
+        My approach is grounded in <strong>user research and data</strong>. I believe the best 
+        products come from deeply understanding user pain points, then ruthlessly prioritising 
+        what to build next.
+      </p>
+      <p>
+        Outside of work, I write about product strategy, SaaS growth, and the craft of building 
+        software that scales. You'll find my writing in the Portfolio section.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years in Product</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Products Shipped</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">ARR Growth Led</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">B2B</div>
+        <div class="stat-label">SaaS Focus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="section-label">What I Do</div>
+  <h2>Core competencies</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🗺️</div>
+      <div class="skill-title">Product Strategy</div>
+      <div class="skill-desc">Roadmapping, OKRs, competitive analysis, and long-range vision that aligns teams around what matters.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-title">User Research</div>
+      <div class="skill-desc">Interviews, usability testing, surveys — turning qualitative signal into product decisions.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-title">Data & Analytics</div>
+      <div class="skill-desc">Funnel analysis, cohort studies, A/B testing, and metrics frameworks to validate decisions.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤝</div>
+      <div class="skill-title">Stakeholder Management</div>
+      <div class="skill-desc">Aligning engineering, design, sales, and leadership around a single, clear product vision.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🚀</div>
+      <div class="skill-title">Go-to-Market</div>
+      <div class="skill-desc">Launch planning, pricing strategy, enablement, and post-launch iteration loops.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">✍️</div>
+      <div class="skill-title">Product Writing</div>
+      <div class="skill-desc">PRDs, specs, strategy memos, and public writing on product craft and SaaS growth.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Utkarsh Rastogi</span>
+  <div style="display:flex;gap:24px;">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
