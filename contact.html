@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Utkarsh Rastogi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0c0f;
+      --surface:   #13151a;
+      --border:    #1e2028;
+      --accent:    #5b6ef5;
+      --accent2:   #a78bfa;
+      --text:      #e8e9f0;
+      --muted:     #6b7280;
+      --tag-bg:    #1a1c25;
+      --input-bg:  #0f1014;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(11,12,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--text); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .contact-wrapper {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    /* LEFT PANEL */
+    .contact-left {
+      padding: 80px 60px 80px 60px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-left::before {
+      content: '';
+      position: absolute; bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(91,110,245,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .contact-sub {
+      color: var(--muted); font-size: 0.95rem;
+      max-width: 360px; margin-bottom: 56px; line-height: 1.8;
+    }
+
+    .channels { display: flex; flex-direction: column; gap: 12px; }
+    .channel-link {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      max-width: 340px;
+    }
+    .channel-link:hover { border-color: var(--accent); background: #13151f; }
+    .channel-icon {
+      width: 40px; height: 40px;
+      background: var(--tag-bg);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .channel-info {}
+    .channel-name { font-size: 0.78rem; color: var(--muted); margin-bottom: 2px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .channel-handle { font-size: 0.9rem; font-weight: 500; }
+
+    /* RIGHT PANEL */
+    .contact-right {
+      padding: 80px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .form { display: flex; flex-direction: column; gap: 20px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    label {
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    input, textarea, select {
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 140px; }
+
+    select option { background: var(--bg); }
+
+    .btn-submit {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 14px 32px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-submit:hover { background: #4a5de0; transform: translateY(-1px); }
+
+    .form-note {
+      font-size: 0.78rem; color: var(--muted);
+      text-align: center; margin-top: -8px;
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .success-msg h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .success-msg p { color: var(--muted); font-size: 0.9rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 0.82rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .contact-wrapper { grid-template-columns: 1fr; padding-top: 80px; }
+      .contact-left { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--border); }
+      .contact-right { padding: 48px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">UR</a>
+  <ul class="nav-links">
+    <li><a href="index.html">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="contact-wrapper">
+
+  <!-- LEFT -->
+  <div class="contact-left">
+    <div class="section-label">Get in touch</div>
+    <h1>Let's talk<br>product.</h1>
+    <p class="contact-sub">
+      Open to conversations about product strategy, collaboration, 
+      advisory roles, or just swapping ideas. Drop me a message.
+    </p>
+
+    <div class="channels">
+      <a href="https://linkedin.com/in/utkarshrastogi" target="_blank" class="channel-link">
+        <div class="channel-icon">in</div>
+        <div class="channel-info">
+          <div class="channel-name">LinkedIn</div>
+          <div class="channel-handle">linkedin.com/in/utkarshrastogi</div>
+        </div>
+      </a>
+      <a href="mailto:hello@utkarshrastogi.com" class="channel-link">
+        <div class="channel-icon">✉</div>
+        <div class="channel-info">
+          <div class="channel-name">Email</div>
+          <div class="channel-handle">hello@utkarshrastogi.com</div>
+        </div>
+      </a>
+      <a href="https://instagram.com/utkarshrastogi" target="_blank" class="channel-link">
+        <div class="channel-icon">◎</div>
+        <div class="channel-info">
+          <div class="channel-name">Instagram</div>
+          <div class="channel-handle">@utkarshrastogi</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="contact-right">
+    <h2>Send a message</h2>
+
+    <div class="form" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">What's this about?</label>
+        <select id="reason">
+          <option value="" disabled selected>Select a reason</option>
+          <option>Product Strategy Discussion</option>
+          <option>Collaboration / Advisory</option>
+          <option>Writing / Speaking</option>
+          <option>Just saying hi</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="What's on your mind?"></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="handleSubmit()">Send message →</button>
+      <p class="form-note">I usually reply within 2–3 days.</p>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">✓</div>
+      <h3>Message sent!</h3>
+      <p>Thanks for reaching out. I'll get back to you within a few days.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>© 2026 Utkarsh Rastogi</span>
+  <div style="display:flex;gap:24px;">
+    <a href="index.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>
