@@ -122,20 +122,16 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* PROJECT CARDS */
-    .projects-grid { display: flex; flex-direction: column; gap: 2px; }
-    .project-card {
+    /* PROJECT CASE STUDY */
+    .case-study {
       background: var(--surface); border: 1px solid var(--border);
-      padding: 28px 28px; display: grid;
-      grid-template-columns: 1fr auto; gap: 20px; align-items: start;
-      transition: border-color 0.2s, background 0.2s;
-      text-decoration: none; color: inherit;
+      border-radius: 12px; overflow: hidden;
     }
-    .project-card:first-child { border-radius: 12px 12px 0 0; }
-    .project-card:last-child { border-radius: 0 0 12px 12px; }
-    .project-card:hover { border-color: var(--accent); background: #13151f; }
-
-    .project-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .case-study-header {
+      padding: 40px 40px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
     .tag {
       display: inline-block; padding: 3px 9px;
       background: var(--tag-bg); border: 1px solid var(--border);
@@ -143,20 +139,86 @@
       letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase;
     }
     .tag.highlight { color: var(--accent); border-color: rgba(91,110,245,0.3); background: rgba(91,110,245,0.08); }
-    .project-title {
-      font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
-      letter-spacing: -0.01em; margin-bottom: 8px;
+    .case-study-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.1;
     }
-    .project-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
+    .case-study-tagline {
+      font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 640px;
+    }
 
-    .project-impact { text-align: right; white-space: nowrap; flex-shrink: 0; }
-    .impact-num {
-      font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; line-height: 1;
+    .case-study-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
     }
-    .impact-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+    .cs-stat {
+      padding: 24px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .cs-stat:last-child { border-right: none; }
+    .cs-stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .cs-stat-value { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); }
+
+    .case-study-body { padding: 40px; display: flex; flex-direction: column; gap: 40px; }
+
+    .cs-section-title {
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cs-section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .cs-text {
+      font-size: 0.95rem; color: var(--muted); line-height: 1.9;
+    }
+    .cs-text p { margin-bottom: 16px; }
+    .cs-text p:last-child { margin-bottom: 0; }
+    .cs-text strong { color: var(--text); font-weight: 500; }
+    .cs-text em { color: var(--accent2); font-style: italic; }
+
+    .cs-highlight {
+      background: var(--bg); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 20px 24px;
+      font-size: 0.97rem; color: var(--text); line-height: 1.8;
+      font-style: italic;
+    }
+
+    .cs-tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .cs-tool {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text);
+    }
+    .cs-tool-icon { font-size: 1rem; }
+
+    .cs-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 24px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .cs-cta-text { font-size: 0.9rem; color: var(--muted); }
+    .cs-cta-text strong { color: var(--text); display: block; font-size: 1rem; margin-bottom: 4px; }
+    .btn-sm {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 500; font-family: 'Inter', sans-serif;
+      text-decoration: none; transition: all 0.2s; white-space: nowrap;
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+    }
+    .btn-sm:hover { background: #4a5de0; }
+
+    @media (max-width: 640px) {
+      .case-study-header { padding: 24px 20px 20px; }
+      .case-study-stats { grid-template-columns: 1fr 1fr; }
+      .cs-stat:nth-child(2) { border-right: none; }
+      .cs-stat:nth-child(3) { border-top: 1px solid var(--border); border-right: none; grid-column: 1 / -1; }
+      .case-study-body { padding: 24px 20px; gap: 28px; }
+      .cs-cta { flex-direction: column; }
+    }
 
     /* WRITINGS */
     .writings-list { display: flex; flex-direction: column; gap: 2px; }
@@ -265,51 +327,166 @@
 <div class="content">
   <!-- PROJECTS -->
   <div class="tab-panel active" id="tab-projects">
-    <div class="projects-grid">
-      <a href="#" class="project-card">
+    <div class="case-study">
+
+      <!-- HEADER -->
+      <div class="case-study-header">
+        <div class="project-meta">
+          <span class="tag highlight">Side Project</span>
+          <span class="tag">2025</span>
+          <span class="tag">Health & Wellness</span>
+          <span class="tag">Vibe Coded</span>
+          <span class="tag">Launching Soon</span>
+        </div>
+        <div class="case-study-title">Day One Again</div>
+        <div class="case-study-tagline">
+          A non-judgemental platform for cannabis users to track their usage, understand their patterns,
+          and reconnect with themselves — built by someone who lived the problem.
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="case-study-stats">
+        <div class="cs-stat">
+          <div class="cs-stat-label">Status</div>
+          <div class="cs-stat-value">Launching in ~2 weeks</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-label">Built with</div>
+          <div class="cs-stat-value">ChatGPT · Claude · Lovable</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-label">My role</div>
+          <div class="cs-stat-value">Founder · Designer · Builder</div>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="case-study-body">
+
+        <!-- THE PROBLEM -->
         <div>
-          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2024</span><span class="tag">B2B SaaS</span></div>
-          <div class="project-title">Self-Serve Onboarding Redesign</div>
-          <div class="project-desc">Identified activation drop-off through cohort analysis. Led redesign of the first-run experience across 3 product surfaces, reducing time-to-value from 14 days to 4 days.</div>
+          <div class="cs-section-title">The Problem</div>
+          <div class="cs-text">
+            <p>
+              For three years, I used cannabis heavily. What started as recreational slowly became
+              a crutch — and I didn't notice until the signs were impossible to ignore:
+              <strong>lower motivation, emotional flatness, a growing detachment</strong> from people I cared
+              about and things that once mattered to me.
+            </p>
+            <p>
+              I had good friends around me. A support system most people don't have. And even then,
+              quitting was hard. Not just physically — but emotionally. Every bad day felt like a
+              setback. Every slip felt like failure. There was no space to process it without
+              judgement, no tool that understood the nuance of what I was going through.
+            </p>
+          </div>
+          <div class="cs-highlight">
+            "If it was this hard for me — with support, with awareness, with the ability to use AI
+            tools to help myself — what does it feel like for someone doing this completely alone?"
+          </div>
         </div>
-        <div class="project-impact">
-          <div class="impact-num">+38%</div>
-          <div class="impact-label">Activation Rate</div>
-        </div>
-      </a>
-      <a href="#" class="project-card">
+
+        <!-- THE INSIGHT -->
         <div>
-          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2023</span><span class="tag">Integrations</span></div>
-          <div class="project-title">API Partner Ecosystem</div>
-          <div class="project-desc">Built the foundation for a third-party integration marketplace — from developer docs and auth flows to partner onboarding. Launched with 8 native integrations in Q3 2023.</div>
+          <div class="cs-section-title">The Insight</div>
+          <div class="cs-text">
+            <p>
+              The turning point wasn't a single moment. It was a realisation that built slowly:
+              <strong>there are people out there who are alone in this.</strong> Who don't have friends
+              to lean on, who don't know how to use ChatGPT to their advantage, who are silently
+              struggling with something society still treats with stigma.
+            </p>
+            <p>
+              Most existing apps are either clinical and cold, or built for abstinence-only thinking.
+              They don't account for the messy, non-linear reality of trying to change a habit that
+              has emotional roots. They don't make you feel seen.
+            </p>
+            <p>
+              <strong>Day One Again is built on one belief:</strong> that every single day is a fresh
+              start. That "day one again" isn't a sign of failure — it's proof you're still trying.
+              And that trying, consistently, is what progress actually looks like.
+            </p>
+          </div>
         </div>
-        <div class="project-impact">
-          <div class="impact-num">8</div>
-          <div class="impact-label">Integrations Shipped</div>
-        </div>
-      </a>
-      <a href="#" class="project-card">
+
+        <!-- THE PRODUCT -->
         <div>
-          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2023</span><span class="tag">Growth</span></div>
-          <div class="project-title">Usage-Based Pricing Migration</div>
-          <div class="project-desc">Owned the end-to-end migration from seat-based to usage-based pricing. Worked with Finance, Sales, and Engineering to design pricing tiers and run a staged rollout.</div>
+          <div class="cs-section-title">What It Does</div>
+          <div class="cs-text">
+            <p>
+              Day One Again gives cannabis users a <strong>private, non-judgemental space</strong> to:
+            </p>
+            <p>
+              <strong>Track usage and recovery trends</strong> — so users can see their own patterns
+              clearly, without shame. Data as self-awareness, not self-punishment.
+            </p>
+            <p>
+              <strong>Connect with society on their own terms</strong> — for those who are ready,
+              a gentle on-ramp back to community and connection, not forced or rushed.
+            </p>
+            <p>
+              <strong>Mark every day one as meaningful</strong> — the name isn't ironic. It's a
+              reframe. Whether it's your first day one or your fiftieth, it counts. The app is
+              designed to make you feel that.
+            </p>
+          </div>
         </div>
-        <div class="project-impact">
-          <div class="impact-num">+22%</div>
-          <div class="impact-label">ACV Uplift</div>
-        </div>
-      </a>
-      <a href="#" class="project-card">
+
+        <!-- BUILDING IT -->
         <div>
-          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2022</span><span class="tag">Platform</span></div>
-          <div class="project-title">Reporting & Analytics Module</div>
-          <div class="project-desc">Shipped a native reporting suite that replaced external BI tools for most customers. Designed the data model, built the query builder UX, and launched to Enterprise tier.</div>
+          <div class="cs-section-title">How I Built It — As a Non-Tech PM</div>
+          <div class="cs-text">
+            <p>
+              I'm a Product Manager. I know how to think about products. But writing code from scratch?
+              That's not my background. What changed is the world around me.
+            </p>
+            <p>
+              I used <strong>ChatGPT to think through structure and content</strong>, <strong>Claude
+              to refine the experience and writing</strong>, and <strong>Lovable to bring the
+              interface to life</strong> — going from idea to working product without a single
+              line of code written by hand.
+            </p>
+            <p>
+              I expected it to be overwhelming. It wasn't. What surprised me most was how much
+              <em>product thinking</em> still mattered — knowing what to ask, how to frame the
+              problem, when to push back on what the AI generated. The tools handled the execution.
+              The judgement was still mine.
+            </p>
+          </div>
+          <div class="cs-tools">
+            <div class="cs-tool"><span class="cs-tool-icon">🤖</span> ChatGPT</div>
+            <div class="cs-tool"><span class="cs-tool-icon">⚡</span> Claude</div>
+            <div class="cs-tool"><span class="cs-tool-icon">🎨</span> Lovable</div>
+          </div>
         </div>
-        <div class="project-impact">
-          <div class="impact-num">91%</div>
-          <div class="impact-label">Retention on Tier</div>
+
+        <!-- WHY IT MATTERS -->
+        <div>
+          <div class="cs-section-title">Why It Matters to Me</div>
+          <div class="cs-text">
+            <p>
+              I'm building this because I know what it feels like to not be able to quit for a
+              long time. To feel stuck. To want things to be different but not know where to start.
+            </p>
+            <p>
+              I got through it. Not perfectly, not linearly. But I got through it. And the least
+              I can do is build something that gives someone else — someone who might be more
+              alone in this than I was — a place to start their own day one.
+            </p>
+          </div>
         </div>
-      </a>
+
+        <!-- CTA -->
+        <div class="cs-cta">
+          <div class="cs-cta-text">
+            <strong>Day One Again — launching soon</strong>
+            Interested in trying it or sharing feedback? I'd love to hear from you.
+          </div>
+          <a href="contact.html" class="btn-sm">Get early access →</a>
+        </div>
+
+      </div>
     </div>
   </div>
 
