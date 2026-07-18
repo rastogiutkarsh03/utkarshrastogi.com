@@ -2,25 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="description" content="Utkarsh Rastogi — Product Manager at a SaaS company. Building products people actually want to use."/>
   <title>Utkarsh Rastogi — Product Manager</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0b0c0f;
-      --surface:   #13151a;
-      --border:    #1e2028;
-      --accent:    #5b6ef5;
-      --accent2:   #a78bfa;
-      --text:      #e8e9f0;
-      --muted:     #6b7280;
-      --tag-bg:    #1a1c25;
+      --bg:       #0b0c0f;
+      --surface:  #13151a;
+      --border:   #1e2028;
+      --accent:   #5b6ef5;
+      --accent2:  #a78bfa;
+      --text:     #e8e9f0;
+      --muted:    #6b7280;
+      --tag-bg:   #1a1c25;
+      --nav-h:    64px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
       background: var(--bg);
@@ -28,226 +31,238 @@
       font-family: 'Inter', sans-serif;
       font-size: 16px;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
+      height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 60px;
-      background: rgba(11,12,15,0.85);
-      backdrop-filter: blur(12px);
+      padding: 0 24px;
+      background: rgba(11,12,15,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
       font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.02em;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--text); text-decoration: none;
+      letter-spacing: -0.02em; z-index: 201;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
     .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      letter-spacing: 0.02em; transition: color 0.2s;
+      padding: 8px 0;
+      min-height: 44px; display: flex; align-items: center;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
-    /* HERO */
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 44px; height: 44px;
+      background: none; border: none; cursor: pointer;
+      z-index: 201; padding: 8px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed; inset: 0; z-index: 199;
+      background: var(--bg);
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 8px;
+      padding-top: var(--nav-h);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: var(--text); text-decoration: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      padding: 16px 32px;
+      min-height: 64px; display: flex; align-items: center;
+      transition: color 0.2s;
+    }
+    .nav-drawer a:hover, .nav-drawer a.active { color: var(--accent); }
+
+    /* ── HERO ── */
     .hero {
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex; align-items: center;
-      padding: 120px 60px 80px;
-      position: relative;
-      overflow: hidden;
+      padding: calc(var(--nav-h) + 48px) 24px 64px;
+      position: relative; overflow: hidden;
     }
     .hero::before {
       content: '';
-      position: absolute;
-      top: -200px; left: -200px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(91,110,245,0.12) 0%, transparent 70%);
+      position: absolute; top: -20%; left: -20%;
+      width: min(700px, 120vw); height: min(700px, 120vw);
+      background: radial-gradient(circle, rgba(91,110,245,0.13) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero::after {
       content: '';
-      position: absolute;
-      bottom: -100px; right: -100px;
-      width: 500px; height: 500px;
+      position: absolute; bottom: -10%; right: -10%;
+      width: min(500px, 80vw); height: min(500px, 80vw);
       background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-inner { max-width: 780px; position: relative; z-index: 1; }
+    .hero-inner { max-width: 780px; position: relative; z-index: 1; width: 100%; }
     .hero-eyebrow {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
       display: flex; align-items: center; gap: 10px;
     }
     .hero-eyebrow::before {
-      content: '';
-      width: 32px; height: 1px;
-      background: var(--accent);
+      content: ''; width: 28px; height: 1px; background: var(--accent); flex-shrink: 0;
     }
     h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 28px;
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em; margin-bottom: 24px;
     }
     h1 span {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-sub {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 540px;
-      margin-bottom: 48px;
-      font-weight: 300;
-      line-height: 1.8;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--muted); max-width: 520px;
+      margin-bottom: 40px; font-weight: 300; line-height: 1.8;
     }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 28px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 500; font-family: 'Inter', sans-serif;
+      text-decoration: none; transition: all 0.2s;
+      cursor: pointer; border: none; min-height: 48px;
+      white-space: nowrap;
     }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
+    .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { background: #4a5de0; transform: translateY(-1px); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ABOUT SECTION */
-    section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
-
+    /* ── SECTIONS ── */
+    .section-wrap { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
     .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
     }
     h2 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-      line-height: 1.2;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 32px; line-height: 1.2;
     }
 
+    /* About grid */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
+      gap: 56px; align-items: start;
     }
-    .about-text p {
-      color: var(--muted);
-      margin-bottom: 20px;
-      font-size: 1rem;
-      line-height: 1.85;
-    }
+    .about-text p { color: var(--muted); margin-bottom: 18px; font-size: 0.97rem; line-height: 1.85; }
     .about-text p strong { color: var(--text); font-weight: 500; }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 28px 24px;
-    }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 20px; }
     .stat-card:first-child { border-radius: 12px 0 0 0; }
     .stat-card:nth-child(2) { border-radius: 0 12px 0 0; }
     .stat-card:nth-child(3) { border-radius: 0 0 0 12px; }
     .stat-card:last-child { border-radius: 0 0 12px 0; }
     .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 800;
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 6px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1; margin-bottom: 5px;
     }
-    .stat-label { font-size: 0.8rem; color: var(--muted); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); }
 
-    /* SKILLS */
+    /* Skills */
     .skills-section { border-top: 1px solid var(--border); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px 20px;
       transition: border-color 0.2s;
     }
     .skill-card:hover { border-color: var(--accent); }
-    .skill-icon { font-size: 1.5rem; margin-bottom: 12px; }
-    .skill-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-    }
-    .skill-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .skill-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .skill-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.92rem; margin-bottom: 7px; }
+    .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
-    /* FOOTER */
+    /* Footer */
     footer {
       border-top: 1px solid var(--border);
-      padding: 32px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--muted);
-      font-size: 0.82rem;
+      padding: 28px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 0.8rem;
     }
-    footer a { color: var(--muted); text-decoration: none; }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
 
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .hero { padding: 100px 24px 60px; }
-      section { padding: 60px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .hero { padding: calc(var(--nav-h) + 32px) 20px 48px; }
+      h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
+      .hero-sub { font-size: 1rem; margin-bottom: 32px; }
+      .hero-cta { flex-direction: column; }
+      .btn { width: 100%; }
+
+      .section-wrap { padding: 56px 20px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .skill-card { padding: 18px 16px; }
+
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 20px; }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+      nav { padding: 0 40px; }
+      .hero { padding: calc(var(--nav-h) + 48px) 40px 64px; }
+      .section-wrap { padding: 80px 40px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 28px 40px; }
+    }
+
+    @media (min-width: 1025px) {
+      nav { padding: 0 60px; }
+      .hero { padding: calc(var(--nav-h) + 80px) 60px 80px; }
+      .section-wrap { padding: 100px 60px; }
+      footer { padding: 32px 60px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
@@ -260,7 +275,16 @@
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation">
+  <a href="index.html" class="active" onclick="closeMenu()">About</a>
+  <a href="portfolio.html" onclick="closeMenu()">Portfolio</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -268,7 +292,7 @@
     <div class="hero-eyebrow">Product Manager · SaaS</div>
     <h1>Hi, I'm<br><span>Utkarsh Rastogi</span></h1>
     <p class="hero-sub">
-      I build products that people actually want to use — turning messy problems into clean, 
+      I build products that people actually want to use — turning messy problems into clean,
       scalable solutions at the intersection of user needs and business goals.
     </p>
     <div class="hero-cta">
@@ -279,92 +303,63 @@
 </div>
 
 <!-- ABOUT -->
-<section>
+<div class="section-wrap">
   <div class="section-label">About Me</div>
   <h2>Product thinker.<br>Problem solver.</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>
-        I'm a <strong>Product Manager at a SaaS company</strong>, where I own the full product lifecycle — 
-        from discovery and roadmapping to launch and iteration. I work closely with engineering, 
-        design, and GTM teams to ship products that move the needle.
-      </p>
-      <p>
-        My approach is grounded in <strong>user research and data</strong>. I believe the best 
-        products come from deeply understanding user pain points, then ruthlessly prioritising 
-        what to build next.
-      </p>
-      <p>
-        Outside of work, I write about product strategy, SaaS growth, and the craft of building 
-        software that scales. You'll find my writing in the Portfolio section.
-      </p>
+      <p>I'm a <strong>Product Manager at a SaaS company</strong>, where I own the full product lifecycle — from discovery and roadmapping to launch and iteration. I work closely with engineering, design, and GTM teams to ship products that move the needle.</p>
+      <p>My approach is grounded in <strong>user research and data</strong>. I believe the best products come from deeply understanding user pain points, then ruthlessly prioritising what to build next.</p>
+      <p>Outside of work, I write about product strategy, SaaS growth, and the craft of building software that scales.</p>
     </div>
     <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-num">5+</div>
-        <div class="stat-label">Years in Product</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">12+</div>
-        <div class="stat-label">Products Shipped</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">3×</div>
-        <div class="stat-label">ARR Growth Led</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">B2B</div>
-        <div class="stat-label">SaaS Focus</div>
-      </div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Years in Product</div></div>
+      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Products Shipped</div></div>
+      <div class="stat-card"><div class="stat-num">3×</div><div class="stat-label">ARR Growth Led</div></div>
+      <div class="stat-card"><div class="stat-num">B2B</div><div class="stat-label">SaaS Focus</div></div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- SKILLS -->
-<section class="skills-section">
+<div class="section-wrap skills-section">
   <div class="section-label">What I Do</div>
   <h2>Core competencies</h2>
   <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">🗺️</div>
-      <div class="skill-title">Product Strategy</div>
-      <div class="skill-desc">Roadmapping, OKRs, competitive analysis, and long-range vision that aligns teams around what matters.</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🔍</div>
-      <div class="skill-title">User Research</div>
-      <div class="skill-desc">Interviews, usability testing, surveys — turning qualitative signal into product decisions.</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">📊</div>
-      <div class="skill-title">Data & Analytics</div>
-      <div class="skill-desc">Funnel analysis, cohort studies, A/B testing, and metrics frameworks to validate decisions.</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🤝</div>
-      <div class="skill-title">Stakeholder Management</div>
-      <div class="skill-desc">Aligning engineering, design, sales, and leadership around a single, clear product vision.</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🚀</div>
-      <div class="skill-title">Go-to-Market</div>
-      <div class="skill-desc">Launch planning, pricing strategy, enablement, and post-launch iteration loops.</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">✍️</div>
-      <div class="skill-title">Product Writing</div>
-      <div class="skill-desc">PRDs, specs, strategy memos, and public writing on product craft and SaaS growth.</div>
-    </div>
+    <div class="skill-card"><div class="skill-icon">🗺️</div><div class="skill-title">Product Strategy</div><div class="skill-desc">Roadmapping, OKRs, competitive analysis, and long-range vision that aligns teams around what matters.</div></div>
+    <div class="skill-card"><div class="skill-icon">🔍</div><div class="skill-title">User Research</div><div class="skill-desc">Interviews, usability testing, surveys — turning qualitative signal into product decisions.</div></div>
+    <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-title">Data & Analytics</div><div class="skill-desc">Funnel analysis, cohort studies, A/B testing, and metrics frameworks to validate decisions.</div></div>
+    <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-title">Stakeholder Management</div><div class="skill-desc">Aligning engineering, design, sales, and leadership around a single, clear product vision.</div></div>
+    <div class="skill-card"><div class="skill-icon">🚀</div><div class="skill-title">Go-to-Market</div><div class="skill-desc">Launch planning, pricing strategy, enablement, and post-launch iteration loops.</div></div>
+    <div class="skill-card"><div class="skill-icon">✍️</div><div class="skill-title">Product Writing</div><div class="skill-desc">PRDs, specs, strategy memos, and public writing on product craft and SaaS growth.</div></div>
   </div>
-</section>
+</div>
 
 <footer>
   <span>© 2026 Utkarsh Rastogi</span>
-  <div style="display:flex;gap:24px;">
+  <div class="footer-links">
     <a href="portfolio.html">Portfolio</a>
     <a href="contact.html">Contact</a>
   </div>
 </footer>
 
+<script>
+  function toggleMenu(btn) {
+    const drawer = document.getElementById('navDrawer');
+    const isOpen = drawer.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMenu() {
+    const drawer = document.getElementById('navDrawer');
+    const btn = document.querySelector('.nav-toggle');
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+</script>
 </body>
 </html>

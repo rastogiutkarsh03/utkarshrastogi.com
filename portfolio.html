@@ -2,226 +2,232 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="description" content="Portfolio of Utkarsh Rastogi — SaaS product projects and writing on product strategy."/>
   <title>Portfolio — Utkarsh Rastogi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0b0c0f;
-      --surface:   #13151a;
-      --border:    #1e2028;
-      --accent:    #5b6ef5;
-      --accent2:   #a78bfa;
-      --text:      #e8e9f0;
-      --muted:     #6b7280;
-      --tag-bg:    #1a1c25;
+      --bg:      #0b0c0f;
+      --surface: #13151a;
+      --border:  #1e2028;
+      --accent:  #5b6ef5;
+      --accent2: #a78bfa;
+      --text:    #e8e9f0;
+      --muted:   #6b7280;
+      --tag-bg:  #1a1c25;
+      --nav-h:   64px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 16px;
+      line-height: 1.7; overflow-x: hidden;
     }
 
+    /* NAV */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 60px;
-      background: rgba(11,12,15,0.85);
-      backdrop-filter: blur(12px);
+      padding: 0 24px;
+      background: rgba(11,12,15,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800; font-size: 1.1rem;
-      color: var(--text); text-decoration: none;
-      letter-spacing: -0.02em;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+      color: var(--text); text-decoration: none; letter-spacing: -0.02em; z-index: 201;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500;
-      letter-spacing: 0.02em; transition: color 0.2s;
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+      min-height: 44px; display: flex; align-items: center;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
-    .page-header {
-      padding: 160px 60px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 44px; height: 44px;
+      background: none; border: none; cursor: pointer; z-index: 201; padding: 8px;
     }
-    .page-header::before {
-      content: '';
-      position: fixed; top: 0; right: 0;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; z-index: 199;
+      background: var(--bg); flex-direction: column;
+      justify-content: center; align-items: center;
+      gap: 8px; padding-top: var(--nav-h);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: var(--text); text-decoration: none;
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700;
+      letter-spacing: -0.02em; padding: 16px 32px;
+      min-height: 64px; display: flex; align-items: center; transition: color 0.2s;
+    }
+    .nav-drawer a:hover, .nav-drawer a.active { color: var(--accent); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: calc(var(--nav-h) + 48px) 24px 40px;
+      max-width: 1100px; margin: 0 auto;
     }
     .section-label {
-      font-size: 0.75rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 16px;
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
     }
     h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
-      font-weight: 800; letter-spacing: -0.03em;
-      line-height: 1.1; margin-bottom: 20px;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;
     }
     .page-sub { color: var(--muted); font-size: 1rem; max-width: 480px; }
 
     /* TABS */
-    .tabs {
+    .tabs-bar {
       max-width: 1100px; margin: 0 auto;
-      padding: 0 60px;
+      padding: 0 24px;
       display: flex; gap: 4px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 0;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .tabs-bar::-webkit-scrollbar { display: none; }
     .tab {
-      padding: 12px 24px;
-      font-size: 0.875rem; font-weight: 500;
-      color: var(--muted); background: none;
-      border: none; cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
+      padding: 12px 20px; font-size: 0.875rem; font-weight: 500;
+      color: var(--muted); background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: all 0.2s; font-family: 'Inter', sans-serif;
+      white-space: nowrap; min-height: 44px;
     }
     .tab:hover { color: var(--text); }
     .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
     /* CONTENT */
-    .content { max-width: 1100px; margin: 0 auto; padding: 60px; }
-
+    .content { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
     /* PROJECT CARDS */
     .projects-grid { display: flex; flex-direction: column; gap: 2px; }
-
     .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      padding: 36px 40px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: start;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 28px 28px; display: grid;
+      grid-template-columns: 1fr auto; gap: 20px; align-items: start;
       transition: border-color 0.2s, background 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+      text-decoration: none; color: inherit;
     }
     .project-card:first-child { border-radius: 12px 12px 0 0; }
     .project-card:last-child { border-radius: 0 0 12px 12px; }
-    .project-card:only-child { border-radius: 12px; }
     .project-card:hover { border-color: var(--accent); background: #13151f; }
 
-    .project-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .project-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
     .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      text-transform: uppercase;
+      display: inline-block; padding: 3px 9px;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 4px; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase;
     }
     .tag.highlight { color: var(--accent); border-color: rgba(91,110,245,0.3); background: rgba(91,110,245,0.08); }
-
     .project-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.2rem; font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
+      font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+      letter-spacing: -0.01em; margin-bottom: 8px;
     }
-    .project-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; max-width: 560px; }
+    .project-desc { color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
 
-    .project-impact {
-      text-align: right; white-space: nowrap;
-    }
+    .project-impact { text-align: right; white-space: nowrap; flex-shrink: 0; }
     .impact-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.8rem; font-weight: 800;
+      font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1;
     }
-    .impact-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .impact-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 
     /* WRITINGS */
     .writings-list { display: flex; flex-direction: column; gap: 2px; }
-
     .writing-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 28px 40px;
-      display: flex; justify-content: space-between;
-      align-items: center; gap: 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 24px 28px; display: flex;
+      justify-content: space-between; align-items: center; gap: 20px;
       transition: border-color 0.2s, background 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+      text-decoration: none; color: inherit;
     }
     .writing-card:first-child { border-radius: 12px 12px 0 0; }
     .writing-card:last-child { border-radius: 0 0 12px 12px; }
     .writing-card:hover { border-color: var(--accent); background: #13151f; }
-
-    .writing-info {}
-    .writing-date { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.04em; }
+    .writing-date { font-size: 0.72rem; color: var(--muted); margin-bottom: 7px; letter-spacing: 0.04em; }
     .writing-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.05rem; font-weight: 600;
-      margin-bottom: 8px; letter-spacing: -0.01em;
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600;
+      margin-bottom: 7px; letter-spacing: -0.01em; line-height: 1.3;
     }
-    .writing-excerpt { font-size: 0.84rem; color: var(--muted); line-height: 1.6; max-width: 520px; }
-
+    .writing-excerpt { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
     .writing-arrow {
       color: var(--muted); font-size: 1.2rem; flex-shrink: 0;
       transition: color 0.2s, transform 0.2s;
     }
     .writing-card:hover .writing-arrow { color: var(--accent); transform: translateX(4px); }
 
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem; font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
+    /* FOOTER */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 60px;
+      border-top: 1px solid var(--border); padding: 28px 24px;
       display: flex; justify-content: space-between; align-items: center;
-      color: var(--muted); font-size: 0.82rem;
-      max-width: 100%;
+      color: var(--muted); font-size: 0.8rem;
     }
-    footer a { color: var(--muted); text-decoration: none; }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; }
 
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .page-header { padding: 120px 24px 48px; }
-      .tabs { padding: 0 24px; }
-      .content { padding: 40px 24px; }
-      .project-card { grid-template-columns: 1fr; padding: 24px; }
-      .project-impact { text-align: left; }
-      .writing-card { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .page-header { padding: calc(var(--nav-h) + 32px) 20px 32px; }
+      .tabs-bar { padding: 0 20px; }
+      .content { padding: 32px 20px 64px; }
+
+      .project-card { grid-template-columns: 1fr; padding: 22px 20px; gap: 16px; }
+      .project-impact { text-align: left; display: flex; align-items: center; gap: 12px; }
+      .impact-label { margin-top: 0; }
+
+      .writing-card { flex-direction: column; align-items: flex-start; padding: 20px; gap: 12px; }
+      .writing-arrow { display: none; }
+
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 20px; }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+      nav { padding: 0 40px; }
+      .page-header, .tabs-bar, .content { padding-left: 40px; padding-right: 40px; }
+      footer { padding: 28px 40px; }
+    }
+
+    @media (min-width: 1025px) {
+      nav { padding: 0 60px; }
+      .page-header, .tabs-bar, .content { padding-left: 60px; padding-right: 60px; }
+      .project-card { padding: 36px 40px; }
+      .writing-card { padding: 28px 40px; }
+      footer { padding: 32px 60px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
@@ -234,7 +240,16 @@
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation">
+  <a href="index.html" onclick="closeMenu()">About</a>
+  <a href="portfolio.html" class="active" onclick="closeMenu()">Portfolio</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+</div>
 
 <div class="page-header">
   <div class="section-label">Portfolio</div>
@@ -242,168 +257,139 @@
   <p class="page-sub">A selection of products I've built and ideas I've written about.</p>
 </div>
 
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('projects')">Projects</button>
-  <button class="tab" onclick="switchTab('writings')">Writing</button>
+<div class="tabs-bar">
+  <button class="tab active" onclick="switchTab(this,'projects')">Projects</button>
+  <button class="tab" onclick="switchTab(this,'writings')">Writing</button>
 </div>
 
 <div class="content">
-
   <!-- PROJECTS -->
   <div class="tab-panel active" id="tab-projects">
     <div class="projects-grid">
-
       <a href="#" class="project-card">
         <div>
-          <div class="project-meta">
-            <span class="tag highlight">Lead PM</span>
-            <span class="tag">2024</span>
-            <span class="tag">B2B SaaS</span>
-          </div>
+          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2024</span><span class="tag">B2B SaaS</span></div>
           <div class="project-title">Self-Serve Onboarding Redesign</div>
-          <div class="project-desc">
-            Identified activation drop-off in the onboarding funnel through cohort analysis. 
-            Led redesign of the first-run experience across 3 product surfaces, reducing time-to-value 
-            from 14 days to 4 days.
-          </div>
+          <div class="project-desc">Identified activation drop-off through cohort analysis. Led redesign of the first-run experience across 3 product surfaces, reducing time-to-value from 14 days to 4 days.</div>
         </div>
         <div class="project-impact">
           <div class="impact-num">+38%</div>
           <div class="impact-label">Activation Rate</div>
         </div>
       </a>
-
       <a href="#" class="project-card">
         <div>
-          <div class="project-meta">
-            <span class="tag highlight">Lead PM</span>
-            <span class="tag">2023</span>
-            <span class="tag">Integrations</span>
-          </div>
+          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2023</span><span class="tag">Integrations</span></div>
           <div class="project-title">API Partner Ecosystem</div>
-          <div class="project-desc">
-            Built the foundation for a third-party integration marketplace — from developer docs 
-            and auth flows to partner onboarding. Launched with 8 native integrations in Q3 2023.
-          </div>
+          <div class="project-desc">Built the foundation for a third-party integration marketplace — from developer docs and auth flows to partner onboarding. Launched with 8 native integrations in Q3 2023.</div>
         </div>
         <div class="project-impact">
           <div class="impact-num">8</div>
           <div class="impact-label">Integrations Shipped</div>
         </div>
       </a>
-
       <a href="#" class="project-card">
         <div>
-          <div class="project-meta">
-            <span class="tag highlight">Lead PM</span>
-            <span class="tag">2023</span>
-            <span class="tag">Growth</span>
-          </div>
+          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2023</span><span class="tag">Growth</span></div>
           <div class="project-title">Usage-Based Pricing Migration</div>
-          <div class="project-desc">
-            Owned the end-to-end migration from seat-based to usage-based pricing. Worked with 
-            Finance, Sales, and Engineering to design pricing tiers, update billing infrastructure, 
-            and run a staged rollout.
-          </div>
+          <div class="project-desc">Owned the end-to-end migration from seat-based to usage-based pricing. Worked with Finance, Sales, and Engineering to design pricing tiers and run a staged rollout.</div>
         </div>
         <div class="project-impact">
           <div class="impact-num">+22%</div>
           <div class="impact-label">ACV Uplift</div>
         </div>
       </a>
-
       <a href="#" class="project-card">
         <div>
-          <div class="project-meta">
-            <span class="tag highlight">Lead PM</span>
-            <span class="tag">2022</span>
-            <span class="tag">Platform</span>
-          </div>
+          <div class="project-meta"><span class="tag highlight">Lead PM</span><span class="tag">2022</span><span class="tag">Platform</span></div>
           <div class="project-title">Reporting & Analytics Module</div>
-          <div class="project-desc">
-            Shipped a native reporting suite that replaced the need for external BI tools for 
-            most customers. Designed the data model, built the query builder UX, and launched to 
-            Enterprise tier customers.
-          </div>
+          <div class="project-desc">Shipped a native reporting suite that replaced external BI tools for most customers. Designed the data model, built the query builder UX, and launched to Enterprise tier.</div>
         </div>
         <div class="project-impact">
           <div class="impact-num">91%</div>
           <div class="impact-label">Retention on Tier</div>
         </div>
       </a>
-
     </div>
   </div>
 
   <!-- WRITINGS -->
   <div class="tab-panel" id="tab-writings">
     <div class="writings-list">
-
       <a href="#" class="writing-card">
-        <div class="writing-info">
+        <div>
           <div class="writing-date">June 2025 · 8 min read</div>
           <div class="writing-title">Why Most SaaS Onboarding Fails (And How to Fix It)</div>
           <div class="writing-excerpt">Most products optimise for feature exposure during onboarding. The better question is: what's the minimum path to the user's first "aha" moment?</div>
         </div>
         <div class="writing-arrow">→</div>
       </a>
-
       <a href="#" class="writing-card">
-        <div class="writing-info">
+        <div>
           <div class="writing-date">March 2025 · 6 min read</div>
           <div class="writing-title">The PRD is Dead. Long Live the Opportunity Brief.</div>
-          <div class="writing-excerpt">Traditional PRDs front-load solutions. A well-written opportunity brief does the opposite — it keeps the problem open until the team has truly explored the solution space.</div>
+          <div class="writing-excerpt">Traditional PRDs front-load solutions. A well-written opportunity brief keeps the problem open until the team has truly explored the solution space.</div>
         </div>
         <div class="writing-arrow">→</div>
       </a>
-
       <a href="#" class="writing-card">
-        <div class="writing-info">
+        <div>
           <div class="writing-date">January 2025 · 5 min read</div>
           <div class="writing-title">How I Run Roadmap Reviews That Engineering Actually Respects</div>
           <div class="writing-excerpt">Roadmap reviews fail when PMs treat them as presentations. Here's the format I've refined over four years that turns them into honest, productive conversations.</div>
         </div>
         <div class="writing-arrow">→</div>
       </a>
-
       <a href="#" class="writing-card">
-        <div class="writing-info">
+        <div>
           <div class="writing-date">October 2024 · 7 min read</div>
           <div class="writing-title">Usage-Based Pricing: What the Sales Team Won't Tell You</div>
           <div class="writing-excerpt">Making the switch from seats to usage sounds clean on paper. The messy realities — customer psychology, sales comp, support load — are where most migrations stall.</div>
         </div>
         <div class="writing-arrow">→</div>
       </a>
-
       <a href="#" class="writing-card">
-        <div class="writing-info">
+        <div>
           <div class="writing-date">July 2024 · 4 min read</div>
           <div class="writing-title">North Star Metrics Are Not Enough</div>
-          <div class="writing-excerpt">A single north star metric gives alignment but hides trade-offs. Here's the counter-metric framework I use to keep teams honest about what they're actually optimising for.</div>
+          <div class="writing-excerpt">A single north star metric gives alignment but hides trade-offs. Here's the counter-metric framework I use to keep teams honest about what they're optimising for.</div>
         </div>
         <div class="writing-arrow">→</div>
       </a>
-
     </div>
   </div>
-
 </div>
 
 <footer>
   <span>© 2026 Utkarsh Rastogi</span>
-  <div style="display:flex;gap:24px;">
+  <div class="footer-links">
     <a href="index.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
 </footer>
 
 <script>
-  function switchTab(name) {
+  function switchTab(btn, name) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
     document.getElementById('tab-' + name).classList.add('active');
-    event.target.classList.add('active');
   }
+  function toggleMenu(btn) {
+    const drawer = document.getElementById('navDrawer');
+    const isOpen = drawer.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMenu() {
+    const drawer = document.getElementById('navDrawer');
+    const btn = document.querySelector('.nav-toggle');
+    drawer.classList.remove('open'); btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 </script>
 </body>
 </html>
