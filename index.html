@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <meta name="description" content="Utkarsh Rastogi — Product Manager at a SaaS company. Building products people actually want to use."/>
+  <meta name="description" content="Utkarsh Rastogi — PM at a B2B SaaS startup. 6+ years shipping analytics products and building teams that solve problems together."/>
   <title>Utkarsh Rastogi — Product Manager</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -123,7 +123,51 @@
       background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-inner { max-width: 780px; position: relative; z-index: 1; width: 100%; }
+    .hero-inner {
+      position: relative; z-index: 1; width: 100%;
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-text { max-width: 580px; }
+
+    /* Hero image */
+    .hero-image-wrap {
+      position: relative; z-index: 1;
+    }
+    .hero-image-wrap img {
+      width: 100%; height: 480px;
+      object-fit: cover; object-position: center top;
+      border-radius: 20px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(to bottom, transparent 60%, rgba(11,12,15,0.4) 100%);
+      pointer-events: none;
+    }
+    .hero-image-badge {
+      position: absolute; bottom: 20px; left: 20px; right: 20px;
+      background: rgba(11,12,15,0.75);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 2;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(74,222,128,0.2);
+    }
+    .badge-text { font-size: 0.8rem; color: var(--text); font-weight: 500; }
+    .badge-sub { font-size: 0.72rem; color: var(--muted); }
     .hero-eyebrow {
       font-size: 0.78rem; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
@@ -229,6 +273,9 @@
       .nav-toggle { display: flex; }
 
       .hero { padding: calc(var(--nav-h) + 32px) 20px 48px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+      .hero-image-wrap { order: -1; }
+      .hero-image-wrap img { height: 300px; object-position: center 15%; }
       h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
       .hero-sub { font-size: 1rem; margin-bottom: 32px; }
       .hero-cta { flex-direction: column; }
@@ -248,6 +295,8 @@
     @media (min-width: 641px) and (max-width: 1024px) {
       nav { padding: 0 40px; }
       .hero { padding: calc(var(--nav-h) + 48px) 40px 64px; }
+      .hero-inner { grid-template-columns: 1fr 320px; gap: 40px; }
+      .hero-image-wrap img { height: 400px; }
       .section-wrap { padding: 80px 40px; }
       .skills-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 28px 40px; }
@@ -289,15 +338,28 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Product Manager · SaaS</div>
-    <h1>Hi, I'm<br><span>Utkarsh Rastogi</span></h1>
-    <p class="hero-sub">
-      I build products that people actually want to use — turning messy problems into clean,
-      scalable solutions at the intersection of user needs and business goals.
-    </p>
-    <div class="hero-cta">
-      <a href="portfolio.html" class="btn btn-primary">View my work →</a>
-      <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+    <div class="hero-text">
+      <div class="hero-eyebrow">Product Manager · Enterprise SaaS · AI</div>
+      <h1>Hi, I'm Utkarsh —<br><span>I make messy<br>problems ship.</span></h1>
+      <p class="hero-sub">
+        I take products from idea to adoption by blending customer empathy, technical thinking,
+        and business strategy. Enterprise SaaS, analytics, AI, customer feedback — if it's
+        complex and it matters to users, I want to work on it.
+      </p>
+      <div class="hero-cta">
+        <a href="portfolio.html" class="btn btn-primary">See what I've shipped →</a>
+        <a href="contact.html" class="btn btn-ghost">Let's talk</a>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <img src="utkarsh.jpeg" alt="Utkarsh Rastogi at Mount Fuji, Japan" />
+      <div class="hero-image-badge">
+        <div class="badge-dot"></div>
+        <div>
+          <div class="badge-text">Open to opportunities</div>
+          <div class="badge-sub">Product Manager · B2B SaaS</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -305,33 +367,45 @@
 <!-- ABOUT -->
 <div class="section-wrap">
   <div class="section-label">About Me</div>
-  <h2>Product thinker.<br>Problem solver.</h2>
+  <h2>From idea to adoption —<br>that's my lane.</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>I'm a <strong>Product Manager at a SaaS company</strong>, where I own the full product lifecycle — from discovery and roadmapping to launch and iteration. I work closely with engineering, design, and GTM teams to ship products that move the needle.</p>
-      <p>My approach is grounded in <strong>user research and data</strong>. I believe the best products come from deeply understanding user pain points, then ruthlessly prioritising what to build next.</p>
-      <p>Outside of work, I write about product strategy, SaaS growth, and the craft of building software that scales.</p>
+      <p>
+        I'm a Product Manager who loves solving messy problems. I take products from idea to
+        adoption by blending <strong>customer empathy, technical thinking, and business strategy</strong>
+        — then working closely with engineering to actually make it happen.
+      </p>
+      <p>
+        Over the past few years I've led initiatives across <strong>enterprise SaaS, customer feedback
+        platforms, digital experiences, analytics, and AI capabilities.</strong> My north star is
+        simple: build things that scale, simplify complexity, and make customers say
+        <em>"this just works."</em>
+      </p>
+      <p>
+        Outside work I'm <strong>exploring AI, building side projects,</strong> and mentoring early-career
+        PMs — documenting the journey of becoming a better product builder every day.
+      </p>
     </div>
     <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Years in Product</div></div>
-      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Products Shipped</div></div>
-      <div class="stat-card"><div class="stat-num">3×</div><div class="stat-label">ARR Growth Led</div></div>
-      <div class="stat-card"><div class="stat-num">B2B</div><div class="stat-label">SaaS Focus</div></div>
+      <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">Years in Product</div></div>
+      <div class="stat-card"><div class="stat-num">0→1</div><div class="stat-label">Products Launched</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Domains Shipped</div></div>
+      <div class="stat-card"><div class="stat-num">AI</div><div class="stat-label">Current Focus</div></div>
     </div>
   </div>
 </div>
 
 <!-- SKILLS -->
 <div class="section-wrap skills-section">
-  <div class="section-label">What I Do</div>
-  <h2>Core competencies</h2>
+  <div class="section-label">How I Work</div>
+  <h2>What I bring to the table</h2>
   <div class="skills-grid">
-    <div class="skill-card"><div class="skill-icon">🗺️</div><div class="skill-title">Product Strategy</div><div class="skill-desc">Roadmapping, OKRs, competitive analysis, and long-range vision that aligns teams around what matters.</div></div>
-    <div class="skill-card"><div class="skill-icon">🔍</div><div class="skill-title">User Research</div><div class="skill-desc">Interviews, usability testing, surveys — turning qualitative signal into product decisions.</div></div>
-    <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-title">Data & Analytics</div><div class="skill-desc">Funnel analysis, cohort studies, A/B testing, and metrics frameworks to validate decisions.</div></div>
-    <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-title">Stakeholder Management</div><div class="skill-desc">Aligning engineering, design, sales, and leadership around a single, clear product vision.</div></div>
-    <div class="skill-card"><div class="skill-icon">🚀</div><div class="skill-title">Go-to-Market</div><div class="skill-desc">Launch planning, pricing strategy, enablement, and post-launch iteration loops.</div></div>
-    <div class="skill-card"><div class="skill-icon">✍️</div><div class="skill-title">Product Writing</div><div class="skill-desc">PRDs, specs, strategy memos, and public writing on product craft and SaaS growth.</div></div>
+    <div class="skill-card"><div class="skill-icon">🏢</div><div class="skill-title">Enterprise SaaS</div><div class="skill-desc">Led initiatives in complex B2B environments — navigating long sales cycles, enterprise stakeholders, and multi-team delivery.</div></div>
+    <div class="skill-card"><div class="skill-icon">💬</div><div class="skill-title">Customer Feedback Platforms</div><div class="skill-desc">Built systems that close the loop between what users say and what teams actually build next.</div></div>
+    <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-title">Analytics & Data Products</div><div class="skill-desc">Shipped dashboards and data surfaces that give users answers — not just numbers — and decisions, not just visibility.</div></div>
+    <div class="skill-card"><div class="skill-icon">🤖</div><div class="skill-title">AI Capabilities</div><div class="skill-desc">Currently exploring and shipping AI-powered features — thinking hard about where AI adds value vs where it adds noise.</div></div>
+    <div class="skill-card"><div class="skill-icon">🌐</div><div class="skill-title">Digital Experiences</div><div class="skill-desc">Crafted end-to-end user journeys that simplify complexity and make the product feel like it just works.</div></div>
+    <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-title">Collaborative PM</div><div class="skill-desc">Not a PRD machine — a partner to engineering and design. Tough situations call for solutions, not blame.</div></div>
   </div>
 </div>
 
