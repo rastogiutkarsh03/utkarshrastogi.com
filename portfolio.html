@@ -211,13 +211,53 @@
     }
     .btn-sm:hover { background: #4a5de0; }
 
+    /* PROJECT TILES GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 0;
+    }
+    .project-tile {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 24px;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      display: flex; flex-direction: column; gap: 12px;
+      text-align: left;
+    }
+    .project-tile:hover { border-color: var(--accent); background: #13151f; transform: translateY(-2px); }
+    .project-tile.active { border-color: var(--accent); background: #13151f; }
+    .tile-icon { font-size: 1.8rem; margin-bottom: 4px; }
+    .tile-company {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tile-title {
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+      letter-spacing: -0.01em; line-height: 1.25; color: var(--text);
+    }
+    .tile-desc {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.6; flex: 1;
+    }
+    .tile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
+
+    /* Detail panel */
+    .project-detail {
+      display: none; margin-top: 16px;
+    }
+    .project-detail.active { display: block; }
+
     @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
       .case-study-header { padding: 24px 20px 20px; }
       .case-study-stats { grid-template-columns: 1fr 1fr; }
       .cs-stat:nth-child(2) { border-right: none; }
       .cs-stat:nth-child(3) { border-top: 1px solid var(--border); border-right: none; grid-column: 1 / -1; }
       .case-study-body { padding: 24px 20px; gap: 28px; }
       .cs-cta { flex-direction: column; }
+    }
+    @media (min-width: 641px) and (max-width: 900px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* WRITINGS */
@@ -327,167 +367,297 @@
 <div class="content">
   <!-- PROJECTS -->
   <div class="tab-panel active" id="tab-projects">
-    <div class="case-study">
 
-      <!-- HEADER -->
-      <div class="case-study-header">
-        <div class="project-meta">
-          <span class="tag highlight">Side Project</span>
-          <span class="tag">2025</span>
+    <!-- TILE GRID -->
+    <div class="projects-grid">
+
+      <button class="project-tile active" onclick="openProject('dayoneagain', this)">
+        <div class="tile-icon">🌱</div>
+        <div class="tile-company">Side Project · 2026</div>
+        <div class="tile-title">Day One Again</div>
+        <div class="tile-desc">A private, non-judgemental platform for cannabis users to track usage and recovery — built via vibe coding.</div>
+        <div class="tile-tags">
+          <span class="tag highlight">Founder</span>
           <span class="tag">Health & Wellness</span>
-          <span class="tag">Vibe Coded</span>
-          <span class="tag">Launching Soon</span>
         </div>
-        <div class="case-study-title">Day One Again</div>
-        <div class="case-study-tagline">
-          A non-judgemental platform for cannabis users to track their usage, understand their patterns,
-          and reconnect with themselves — built by someone who lived the problem.
-        </div>
-      </div>
+      </button>
 
-      <!-- STATS -->
-      <div class="case-study-stats">
-        <div class="cs-stat">
-          <div class="cs-stat-label">Status</div>
-          <div class="cs-stat-value">Launching in ~2 weeks</div>
+      <button class="project-tile" onclick="openProject('sprinklr-media', this)">
+        <div class="tile-icon">📡</div>
+        <div class="tile-company">Sprinklr · 2023</div>
+        <div class="tile-title">Reviving a Dead Product</div>
+        <div class="tile-desc">Restructured product offerings and revamped UX to reposition a dying Media Monitoring product — transforming GTM strategy in the process.</div>
+        <div class="tile-tags">
+          <span class="tag highlight">Lead PM</span>
+          <span class="tag">Enterprise SaaS</span>
         </div>
-        <div class="cs-stat">
-          <div class="cs-stat-label">Built with</div>
-          <div class="cs-stat-value">ChatGPT · Claude · Lovable</div>
-        </div>
-        <div class="cs-stat">
-          <div class="cs-stat-label">My role</div>
-          <div class="cs-stat-value">Founder · Designer · Builder</div>
-        </div>
-      </div>
+      </button>
 
-      <!-- BODY -->
-      <div class="case-study-body">
+      <button class="project-tile" onclick="openProject('callcentre', this)">
+        <div class="tile-icon">📞</div>
+        <div class="tile-company">Collections · 2022</div>
+        <div class="tile-title">Making the Call Centre Work</div>
+        <div class="tile-desc">Productized a call centre strategy to build a scalable collections operation — cutting AHT by 30% and agent costs by 25%.</div>
+        <div class="tile-tags">
+          <span class="tag highlight">Lead PM</span>
+          <span class="tag">Operations</span>
+        </div>
+      </button>
 
-        <!-- THE PROBLEM -->
-        <div>
-          <div class="cs-section-title">The Problem</div>
-          <div class="cs-text">
-            <p>
-              For three years, I used cannabis heavily. What started as recreational slowly became
-              a crutch — and I didn't notice until the signs were impossible to ignore:
-              <strong>lower motivation, emotional flatness, a growing detachment</strong> from people I cared
-              about and things that once mattered to me.
-            </p>
-            <p>
-              I had good friends around me. A support system most people don't have. And even then,
-              quitting was hard. Not just physically — but emotionally. Every bad day felt like a
-              setback. Every slip felt like failure. There was no space to process it without
-              judgement, no tool that understood the nuance of what I was going through.
-            </p>
+      <button class="project-tile" onclick="openProject('sprinklr-cfm', this)">
+        <div class="tile-icon">⚙️</div>
+        <div class="tile-company">Sprinklr · Ongoing</div>
+        <div class="tile-title">Self-Serve for a Commoditized Product</div>
+        <div class="tile-desc">Leading distribution & integration strategy for CFM — building self-serve SaaS solutions that reduce managed services dependency.</div>
+        <div class="tile-tags">
+          <span class="tag highlight">Lead PM</span>
+          <span class="tag">Platform</span>
+        </div>
+      </button>
+
+      <button class="project-tile" onclick="openProject('aistra', this)">
+        <div class="tile-icon">🎓</div>
+        <div class="tile-company">Aistra · 2024</div>
+        <div class="tile-title">AI in Classrooms</div>
+        <div class="tile-desc">Led the education charter to make AI accessible for teachers and students — building tools that improve classroom efficiency tactically and long-term.</div>
+        <div class="tile-tags">
+          <span class="tag highlight">Lead PM</span>
+          <span class="tag">EdTech · AI</span>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- DETAIL PANELS -->
+
+    <div class="project-detail active" id="detail-dayoneagain">
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="project-meta">
+            <span class="tag highlight">Side Project</span>
+            <span class="tag">2026</span>
+            <span class="tag">Health & Wellness</span>
+            <span class="tag">Vibe Coded</span>
+            <span class="tag">Launching Soon</span>
           </div>
-          <div class="cs-highlight">
-            "If it was this hard for me — with support, with awareness, with the ability to use AI
-            tools to help myself — what does it feel like for someone doing this completely alone?"
-          </div>
+          <div class="case-study-title">Day One Again</div>
+          <div class="case-study-tagline">A non-judgemental platform for cannabis users to track their usage, understand their patterns, and reconnect with themselves — built by someone who lived close to the problem.</div>
         </div>
-
-        <!-- THE INSIGHT -->
-        <div>
-          <div class="cs-section-title">The Insight</div>
-          <div class="cs-text">
-            <p>
-              The turning point wasn't a single moment. It was a realisation that built slowly:
-              <strong>there are people out there who are alone in this.</strong> Who don't have friends
-              to lean on, who don't know how to use ChatGPT to their advantage, who are silently
-              struggling with something society still treats with stigma.
-            </p>
-            <p>
-              Most existing apps are either clinical and cold, or built for abstinence-only thinking.
-              They don't account for the messy, non-linear reality of trying to change a habit that
-              has emotional roots. They don't make you feel seen.
-            </p>
-            <p>
-              <strong>Day One Again is built on one belief:</strong> that every single day is a fresh
-              start. That "day one again" isn't a sign of failure — it's proof you're still trying.
-              And that trying, consistently, is what progress actually looks like.
-            </p>
-          </div>
+        <div class="case-study-stats">
+          <div class="cs-stat"><div class="cs-stat-label">Status</div><div class="cs-stat-value">Launching in ~2 weeks</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Built with</div><div class="cs-stat-value">ChatGPT · Claude · Lovable</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">My role</div><div class="cs-stat-value">Founder · Designer · Builder</div></div>
         </div>
-
-        <!-- THE PRODUCT -->
-        <div>
-          <div class="cs-section-title">What It Does</div>
-          <div class="cs-text">
-            <p>
-              Day One Again gives cannabis users a <strong>private, non-judgemental space</strong> to:
-            </p>
-            <p>
-              <strong>Track usage and recovery trends</strong> — so users can see their own patterns
-              clearly, without shame. Data as self-awareness, not self-punishment.
-            </p>
-            <p>
-              <strong>Connect with society on their own terms</strong> — for those who are ready,
-              a gentle on-ramp back to community and connection, not forced or rushed.
-            </p>
-            <p>
-              <strong>Mark every day one as meaningful</strong> — the name isn't ironic. It's a
-              reframe. Whether it's your first day one or your fiftieth, it counts. The app is
-              designed to make you feel that.
-            </p>
+        <div class="case-study-body">
+          <div>
+            <div class="cs-section-title">The Problem</div>
+            <div class="cs-text">
+              <p>A very close friend of mine was using cannabis heavily for nearly three years. What started as recreational slowly became a crutch — and by the time the signs were impossible to ignore, the damage was already visible: <strong>lower motivation, emotional flatness, a growing detachment</strong> from people he cared about and things that once mattered to him.</p>
+              <p>He had me around. A support system most people don't have. And even then, quitting was hard. Not just physically — but emotionally. Every bad day felt like a setback. Every slip felt like failure. There was no space to process it without judgement, no tool that understood the nuance of what he was going through.</p>
+            </div>
+            <div class="cs-highlight">"If it was this hard for him — with support, with someone who understood — what does it feel like for someone doing this completely alone?"</div>
           </div>
-        </div>
-
-        <!-- BUILDING IT -->
-        <div>
-          <div class="cs-section-title">How I Built It — As a Non-Tech PM</div>
-          <div class="cs-text">
-            <p>
-              I'm a Product Manager. I know how to think about products. But writing code from scratch?
-              That's not my background. What changed is the world around me.
-            </p>
-            <p>
-              I used <strong>ChatGPT to think through structure and content</strong>, <strong>Claude
-              to refine the experience and writing</strong>, and <strong>Lovable to bring the
-              interface to life</strong> — going from idea to working product without a single
-              line of code written by hand.
-            </p>
-            <p>
-              I expected it to be overwhelming. It wasn't. What surprised me most was how much
-              <em>product thinking</em> still mattered — knowing what to ask, how to frame the
-              problem, when to push back on what the AI generated. The tools handled the execution.
-              The judgement was still mine.
-            </p>
+          <div>
+            <div class="cs-section-title">The Insight</div>
+            <div class="cs-text">
+              <p>Watching my friend go through this up close changed how I saw the problem. The turning point wasn't a single moment — it was a slow realisation that <strong>there are people out there doing this completely alone.</strong> Who don't have a friend to lean on, who can't openly talk about it, who are silently struggling with something society still treats with stigma.</p>
+              <p>Most existing apps are either clinical and cold, or built for abstinence-only thinking. They don't account for the messy, non-linear reality of trying to change a habit that has deep emotional roots. They don't make you feel seen.</p>
+              <p><strong>Day One Again is built on one belief:</strong> that every single day is a fresh start. That "day one again" isn't a sign of failure — it's proof you're still trying.</p>
+            </div>
           </div>
-          <div class="cs-tools">
-            <div class="cs-tool"><span class="cs-tool-icon">🤖</span> ChatGPT</div>
-            <div class="cs-tool"><span class="cs-tool-icon">⚡</span> Claude</div>
-            <div class="cs-tool"><span class="cs-tool-icon">🎨</span> Lovable</div>
+          <div>
+            <div class="cs-section-title">What It Does</div>
+            <div class="cs-text">
+              <p><strong>Track usage and recovery trends</strong> — so users can see their own patterns clearly, without shame. Data as self-awareness, not self-punishment.</p>
+              <p><strong>Connect with society on their own terms</strong> — for those who are ready, a gentle on-ramp back to community and connection, not forced or rushed.</p>
+              <p><strong>Mark every day one as meaningful</strong> — whether it's your first day one or your fiftieth, it counts.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">How I Built It — As a Non-Tech PM</div>
+            <div class="cs-text">
+              <p>I used <strong>ChatGPT to think through structure and content</strong>, <strong>Claude to refine the experience and writing</strong>, and <strong>Lovable to bring the interface to life</strong> — going from idea to working product without a single line of code written by hand.</p>
+              <p>What surprised me most was how much <em>product thinking</em> still mattered — knowing what to ask, how to frame the problem, when to push back on what the AI generated. The tools handled the execution. The judgement was still mine.</p>
+            </div>
+            <div class="cs-tools">
+              <div class="cs-tool"><span class="cs-tool-icon">🤖</span> ChatGPT</div>
+              <div class="cs-tool"><span class="cs-tool-icon">⚡</span> Claude</div>
+              <div class="cs-tool"><span class="cs-tool-icon">🎨</span> Lovable</div>
+            </div>
+          </div>
+          <div class="cs-cta">
+            <div class="cs-cta-text"><strong>Day One Again — launching soon</strong>Interested in trying it or sharing feedback? I'd love to hear from you.</div>
+            <a href="contact.html" class="btn-sm">Get early access →</a>
           </div>
         </div>
-
-        <!-- WHY IT MATTERS -->
-        <div>
-          <div class="cs-section-title">Why It Matters to Me</div>
-          <div class="cs-text">
-            <p>
-              I'm building this because I know what it feels like to not be able to quit for a
-              long time. To feel stuck. To want things to be different but not know where to start.
-            </p>
-            <p>
-              I got through it. Not perfectly, not linearly. But I got through it. And the least
-              I can do is build something that gives someone else — someone who might be more
-              alone in this than I was — a place to start their own day one.
-            </p>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="cs-cta">
-          <div class="cs-cta-text">
-            <strong>Day One Again — launching soon</strong>
-            Interested in trying it or sharing feedback? I'd love to hear from you.
-          </div>
-          <a href="contact.html" class="btn-sm">Get early access →</a>
-        </div>
-
       </div>
     </div>
+
+    <div class="project-detail" id="detail-sprinklr-media">
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="project-meta">
+            <span class="tag highlight">Lead PM</span>
+            <span class="tag">2023</span>
+            <span class="tag">Enterprise SaaS</span>
+            <span class="tag">Sprinklr</span>
+          </div>
+          <div class="case-study-title">Reviving a Dead Product</div>
+          <div class="case-study-tagline">Restructured product offerings and revamped UX to reposition Sprinklr's Media Monitoring product — bringing it back from irrelevance and transforming the GTM strategy around it.</div>
+        </div>
+        <div class="case-study-stats">
+          <div class="cs-stat"><div class="cs-stat-label">Company</div><div class="cs-stat-value">Sprinklr</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Impact</div><div class="cs-stat-value">GTM Strategy Overhaul</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Scope</div><div class="cs-stat-value">Product + UX + Positioning</div></div>
+        </div>
+        <div class="case-study-body">
+          <div>
+            <div class="cs-section-title">The Challenge</div>
+            <div class="cs-text">
+              <p>Sprinklr's Media Monitoring product had effectively become a dead product — losing relevance in a competitive market, unclear on positioning, and being left behind in the GTM motion. The product needed more than a patch. It needed a rethink.</p>
+              <p>The task was to <strong>restructure what the product actually offered</strong>, identify where it could genuinely win, and make the UX reflect a product worth selling again.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">What I Did</div>
+            <div class="cs-text">
+              <p>Started with a deep audit of the existing product, customer feedback, and competitive landscape. Identified the core jobs-to-be-done that customers actually valued versus what the product was trying to be.</p>
+              <p><strong>Restructured the product offering</strong> around a clearer value proposition — simplifying the feature surface, sharpening the positioning, and aligning the roadmap with what the market actually needed.</p>
+              <p><strong>Revamped the UX</strong> to reflect the new structure — reducing cognitive load, improving discoverability, and making the product feel modern enough to sell confidently.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">The Impact</div>
+            <div class="cs-text">
+              <p>The restructuring had a <strong>humungous impact on GTM strategy</strong> — giving the sales team a product they could confidently position, a story they could tell, and a reason for customers to reconsider. A product that was effectively written off came back into active pipeline conversations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-callcentre">
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="project-meta">
+            <span class="tag highlight">Lead PM</span>
+            <span class="tag">2022</span>
+            <span class="tag">Operations</span>
+            <span class="tag">FinTech</span>
+          </div>
+          <div class="case-study-title">Making the Call Centre Work</div>
+          <div class="case-study-tagline">Productized a call centre strategy to build a scalable way of running a collections business — improving calling efficiency by 50%, reducing AHT by 30%, and cutting agent costs by 25%.</div>
+        </div>
+        <div class="case-study-stats">
+          <div class="cs-stat"><div class="cs-stat-label">Efficiency Gain</div><div class="cs-stat-value">+50% Calling Efficiency</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">AHT Reduction</div><div class="cs-stat-value">−30% Handle Time</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Cost Impact</div><div class="cs-stat-value">−25% Agent Costs</div></div>
+        </div>
+        <div class="case-study-body">
+          <div>
+            <div class="cs-section-title">The Challenge</div>
+            <div class="cs-text">
+              <p>Collections is a tricky business by nature — high pressure, highly regulated, deeply human, and notoriously difficult to scale without either burning out agents or compromising compliance. The call centre was running on gut instinct and manual processes. There was no scalable system.</p>
+              <p>The goal was to <strong>productize the call centre operation</strong> — to turn what was an art into a repeatable, measurable, scalable system.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">What I Did</div>
+            <div class="cs-text">
+              <p>Mapped the entire collections calling workflow end-to-end — from lead prioritisation and agent assignment to call scripts, disposition codes, and follow-up logic. Identified where time was being lost, where agents were over-burdened, and where the data was being ignored.</p>
+              <p><strong>Built a scalable calling framework</strong> — productizing prioritisation logic, automating disposition flows, and creating a feedback loop between outcomes and strategy. Made the system smarter over time rather than dependent on individual agent heroics.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">The Impact</div>
+            <div class="cs-text">
+              <p>The numbers tell the story: <strong>50% improvement in overall calling efficiency, 30% reduction in average handle time, and a direct 25% reduction in agent costs</strong> — all while maintaining compliance and improving recovery rates. A system that used to depend on the best agents now worked because the system itself was better designed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-sprinklr-cfm">
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="project-meta">
+            <span class="tag highlight">Lead PM</span>
+            <span class="tag">Ongoing</span>
+            <span class="tag">Platform</span>
+            <span class="tag">Sprinklr</span>
+          </div>
+          <div class="case-study-title">Self-Serve for a Commoditized Product</div>
+          <div class="case-study-tagline">Leading distribution & integration strategy for Sprinklr's CFM product — building scalable self-serve SaaS solutions that reduce managed services dependency and unlock digital-first growth.</div>
+        </div>
+        <div class="case-study-stats">
+          <div class="cs-stat"><div class="cs-stat-label">Company</div><div class="cs-stat-value">Sprinklr</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Focus</div><div class="cs-stat-value">Self-Serve · Distribution</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Status</div><div class="cs-stat-value">Ongoing</div></div>
+        </div>
+        <div class="case-study-body">
+          <div>
+            <div class="cs-section-title">The Challenge</div>
+            <div class="cs-text">
+              <p>CFM (Customer Feedback Management) is a crowded, commoditized space. Differentiation on features alone isn't enough. The real competitive lever is <strong>how easily customers can get up and running</strong> — and how little they need to rely on managed services to do it.</p>
+              <p>The challenge: build a distribution and integration strategy that makes Sprinklr CFM genuinely self-serve at scale.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">What I'm Building</div>
+            <div class="cs-text">
+              <p>Leading the <strong>digital strategy as PM</strong> — designing a self-serve product that lets customers build their own distribution setup with minimal hand-holding. This includes integration architecture, onboarding flows, and the scalable infrastructure that sits underneath.</p>
+              <p>The goal is to move from a model that requires significant managed services to one where customers can be <strong>fully operational independently</strong> — reducing cost-to-serve while improving time-to-value.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-aistra">
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="project-meta">
+            <span class="tag highlight">Lead PM</span>
+            <span class="tag">2024</span>
+            <span class="tag">EdTech</span>
+            <span class="tag">AI</span>
+            <span class="tag">Aistra</span>
+          </div>
+          <div class="case-study-title">AI in Classrooms</div>
+          <div class="case-study-tagline">Led Aistra's education charter to make AI genuinely accessible for teachers and students — building tools that help tactically today and improve classroom efficiency structurally over time.</div>
+        </div>
+        <div class="case-study-stats">
+          <div class="cs-stat"><div class="cs-stat-label">Company</div><div class="cs-stat-value">Aistra</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Users</div><div class="cs-stat-value">Teachers & Students</div></div>
+          <div class="cs-stat"><div class="cs-stat-label">Focus</div><div class="cs-stat-value">AI Accessibility · EdTech</div></div>
+        </div>
+        <div class="case-study-body">
+          <div>
+            <div class="cs-section-title">The Challenge</div>
+            <div class="cs-text">
+              <p>AI in education is full of hype and short on practical utility. Most tools are built for edtech enthusiasts, not for a teacher with 40 students, a packed curriculum, and no time to learn a new platform. The gap between what AI can do and what actually helps in a classroom is enormous.</p>
+              <p>Aistra's education charter was about closing that gap — making AI <strong>genuinely accessible and tactically useful</strong> for the people actually in classrooms.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">What I Did</div>
+            <div class="cs-text">
+              <p>Led the product charter end-to-end — from understanding how teachers and students actually spend their time, to designing AI capabilities that slotted into existing workflows rather than demanding new ones.</p>
+              <p>The approach was deliberately <strong>two-track</strong>: tactical wins that teachers could use immediately (lesson planning, feedback generation, differentiation support), and longer-term infrastructure that built classroom efficiency as a practice — not just a feature.</p>
+              <p>Worked closely with educators to ensure the tools reflected real classroom dynamics, not idealised ones. <strong>Accessibility and trust</strong> were as much a design constraint as functionality.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-section-title">Why It Mattered</div>
+            <div class="cs-text">
+              <p>Making AI work in education isn't about the most sophisticated model — it's about the most useful interface. This project reinforced something I believe deeply: <em>the best technology disappears into the workflow</em>. When teachers stopped noticing the AI and just noticed that their job was easier, we knew we were on the right track.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- WRITINGS -->
@@ -551,6 +721,18 @@
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('tab-' + name).classList.add('active');
+  }
+  function openProject(id, tile) {
+    // Update tiles
+    document.querySelectorAll('.project-tile').forEach(t => t.classList.remove('active'));
+    tile.classList.add('active');
+    // Update detail panels
+    document.querySelectorAll('.project-detail').forEach(d => d.classList.remove('active'));
+    document.getElementById('detail-' + id).classList.add('active');
+    // Scroll to detail on mobile
+    if (window.innerWidth < 641) {
+      document.getElementById('detail-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
   function toggleMenu(btn) {
     const drawer = document.getElementById('navDrawer');
