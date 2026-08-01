@@ -260,25 +260,18 @@
     <h1>Let's talk<br>product.</h1>
     <p class="contact-sub">Open to conversations about product strategy, collaboration, advisory roles, or just swapping ideas.</p>
     <div class="channels">
-      <a href="https://linkedin.com/in/utkarshrastogi" target="_blank" rel="noopener" class="channel-link">
+      <a href="https://www.linkedin.com/in/utkarsh-rastogi-69b147b5" target="_blank" rel="noopener" class="channel-link">
         <span class="channel-icon">in</span>
         <div>
           <div class="channel-name">LinkedIn</div>
-          <div class="channel-handle">linkedin.com/in/utkarshrastogi</div>
+          <div class="channel-handle">utkarsh-rastogi-69b147b5</div>
         </div>
       </a>
-      <a href="mailto:hello@utkarshrastogi.com" class="channel-link">
+      <a href="mailto:rastogiutkarsh03@gmail.com" class="channel-link">
         <span class="channel-icon">✉</span>
         <div>
           <div class="channel-name">Email</div>
-          <div class="channel-handle">hello@utkarshrastogi.com</div>
-        </div>
-      </a>
-      <a href="https://instagram.com/utkarshrastogi" target="_blank" rel="noopener" class="channel-link">
-        <span class="channel-icon">◎</span>
-        <div>
-          <div class="channel-name">Instagram</div>
-          <div class="channel-handle">@utkarshrastogi</div>
+          <div class="channel-handle">rastogiutkarsh03@gmail.com</div>
         </div>
       </a>
     </div>
@@ -291,16 +284,16 @@
       <div class="form-row">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" placeholder="Your name" autocomplete="name"/>
+          <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name"/>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" inputmode="email"/>
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email"/>
         </div>
       </div>
       <div class="form-group">
         <label for="reason">What's this about?</label>
-        <select id="reason">
+        <select id="reason" name="reason">
           <option value="" disabled selected>Select a reason</option>
           <option>Product Strategy Discussion</option>
           <option>Collaboration / Advisory</option>
@@ -311,9 +304,9 @@
       </div>
       <div class="form-group">
         <label for="message">Message</label>
-        <textarea id="message" placeholder="What's on your mind?"></textarea>
+        <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
       </div>
-      <button class="btn-submit" onclick="handleSubmit()">Send message →</button>
+      <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">Send message →</button>
       <p class="form-note">I usually reply within 2–3 days.</p>
     </div>
     <div class="success-msg" id="successMsg">
@@ -333,13 +326,41 @@
 </footer>
 
 <script>
-  function handleSubmit() {
+  async function handleSubmit() {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
     if (!name || !email || !message) { alert('Please fill in your name, email, and message.'); return; }
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch('https://formspree.io/f/xykrqyng', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          reason: document.getElementById('reason').value,
+          message
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        btn.textContent = 'Send message →';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email me directly.');
+      }
+    } catch {
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or email me directly.');
+    }
   }
   function toggleMenu(btn) {
     const drawer = document.getElementById('navDrawer');
