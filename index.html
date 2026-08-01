@@ -207,6 +207,25 @@
     .skill-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.92rem; margin-bottom: 7px; }
     .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
+    /* Outside of work */
+    .outside-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .outside-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .outside-card:hover { border-color: var(--accent); }
+    .outside-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .outside-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; margin-bottom: 10px; color: var(--text);
+    }
+    .outside-text { font-size: 0.85rem; color: var(--muted); line-height: 1.75; }
+
     /* Footer */
     footer {
       border-top: 1px solid var(--border); padding: 28px var(--pad);
@@ -238,6 +257,7 @@
       .about-stats { grid-template-columns: 1fr 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .skill-card { padding: 18px 16px; }
+      .outside-grid { grid-template-columns: 1fr; }
 
       footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 20px; }
     }
@@ -284,7 +304,7 @@
 <div class="content-col">
   <div class="hero-text">
     <div class="hero-eyebrow">Product Manager · Enterprise SaaS · AI</div>
-    <h1>Hi, I'm Utkarsh —<br><span>I make messy problems ship.</span></h1>
+    <h1>Curious by nature.<br><span>Collaborative by choice.<br>Builder by obsession.</span></h1>
     <p class="hero-sub">
       I take products from idea to adoption by blending customer empathy, technical thinking,
       and business strategy. Enterprise SaaS, analytics, AI, customer feedback — if it's
@@ -315,10 +335,6 @@
           simple: build things that scale, simplify complexity, and make customers say
           <em>"this just works."</em>
         </p>
-        <p>
-          Outside work I'm <strong>exploring AI, building side projects,</strong> and mentoring early-career
-          PMs — documenting the journey of becoming a better product builder every day.
-        </p>
       </div>
       <div class="about-stats">
         <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">Years in Product</div></div>
@@ -342,6 +358,36 @@
       <div class="skill-card"><div class="skill-icon">🤖</div><div class="skill-title">AI Capabilities</div><div class="skill-desc">Currently exploring and shipping AI-powered features — thinking hard about where AI adds value vs where it adds noise.</div></div>
       <div class="skill-card"><div class="skill-icon">🌐</div><div class="skill-title">Digital Experiences</div><div class="skill-desc">Crafted end-to-end user journeys that simplify complexity and make the product feel like it just works.</div></div>
       <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-title">Collaborative PM</div><div class="skill-desc">Not a PRD machine — a partner to engineering and design. Tough situations call for solutions, not blame.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OUTSIDE OF WORK -->
+<div class="content-col">
+  <div class="section-wrap">
+    <div class="section-label">Outside of Work</div>
+    <h2>The person behind the PM</h2>
+    <div class="outside-grid">
+      <div class="outside-card">
+        <div class="outside-icon">🏏</div>
+        <div class="outside-title">Sport</div>
+        <div class="outside-text">Cricket and racquet sports are my reset button. There's something about a game with real stakes that clears the head like nothing else — and yes, I'm competitive enough that a bad loss will bother me longer than I'd like to admit.</div>
+      </div>
+      <div class="outside-card">
+        <div class="outside-icon">📷</div>
+        <div class="outside-title">Photography</div>
+        <div class="outside-text">When I'm not on a court or a field, I'm usually behind a camera. Photography started as a simple need — to hold on to moments that pass too fast and fade faster. I don't shoot to create art. I shoot to be able to relive things. There's always a personal story behind a photograph, and that's what makes them satisfying to me. Someday, a Nat Geo project. Fingers crossed. 🤞</div>
+      </div>
+      <div class="outside-card">
+        <div class="outside-icon">✈️</div>
+        <div class="outside-title">Travel</div>
+        <div class="outside-text">Travelling is something that has recently snuck up on me. Being completely out of your element in a new place does something to you — and I've started liking it more and more. Experiencing new cultures, exploring food and understanding people (to some extent) gives me a kick.</div>
+      </div>
+      <div class="outside-card">
+        <div class="outside-icon">🦸</div>
+        <div class="outside-title">Avengers</div>
+        <div class="outside-text">Big Avengers fan. Unironically and unapologetically. Endgame in a packed theatre is still one of my favourite memories.</div>
+      </div>
     </div>
   </div>
 </div>
